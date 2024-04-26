@@ -1,0 +1,49 @@
+# annuler ordres
+    def annuler(self, participant, type_ordre, quantite, prix):
+        if type_ordre == "achat":
+            for ordre in self.ordresA:
+                if ordre[0] == participant and ordre[1] == quantite and ordre[2] == prix:
+                    self.ordresA.remove(ordre)
+                    print("l'ordre de "+str(type_ordre)+", émis par "+str(participant)+", à une cotation de "+str(prix)+"€, pour une quantité de "+str(quantite)+" titres, a été annulé.")
+                    return
+        elif type_ordre == "vente":
+            for ordre in self.ordresV:
+                if ordre[0] == participant and ordre[1] == quantite and ordre[2] == prix:
+                    self.ordresV.remove(ordre)
+                    print("l'ordre de "+str(type_ordre)+", émis par "+str(participant)+", à une cotation de "+str(prix)+"€, pour une quantité de "+str(quantite)+" titres, a été annulé.")
+                    return
+        self.print_carnet()
+
+
+
+
+#affichage carnet d'ordre
+    def print_carnet(self):
+        import pandas as pd
+        tableOV = pd.DataFrame(carnet.ordresV, columns=["prix", "quantité", "participants"])
+        tableOA = pd.DataFrame(carnet.ordresA, columns=["participants", "quantité", "prix"])
+        tableO = pd.concat([tableOA, tableOV], axis=1)
+        tableO = tableO.fillna('')
+        print(tableO)
+
+
+    # exemple d'utilsation
+carnet= CarnetOrdres()
+
+
+#placement ordres
+carnet.ajouter_achat("Divid_", 100, 15)
+carnet.ajouter_vente("Jeff_", 250, 11)
+carnet.ajouter_achat("Gwendoline_", 150, 14.5)
+carnet.ajouter_achat("Divid_",290,11)
+carnet.ajouter_vente("Jeff_", 250, 14.5)
+
+
+#afficher carnet d'ordres
+
+
+
+
+#annuler un ordre
+carnet.annuler("Divid_","achat", 100, 15)
+carnet.annuler("Jeff_", "vente", 250, 18)
