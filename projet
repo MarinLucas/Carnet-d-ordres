@@ -1,33 +1,33 @@
-class CarnetOrdres:
+class CarnetOrdres:               #création de notre classe principale
     def __init__(self):
-        self.ordresA = []
-        self.ordresV = []
+        self.ordresA = []         #création de la liste d'ordres d'achat
+        self.ordresV = []         #création de la liste d'ordres de vente
 
 
 
-
-    def ajouter_vente(self, participant, quantite, prix):
+    #fonction pour ajouter un ordre de vente et ensuite vérifier s'il correspond à un ordre d'achat
+    def ajouter_vente(self, participant, quantite, prix):     #définition des caractéristiques de l'ordre
         self.ajoutOV=[]
         self.ajoutOV.append(prix)
         self.ajoutOV.append(quantite)
         self.ajoutOV.append(participant)
         self.ordresV.append(self.ajoutOV)
         self.ordresV.sort(key=lambda x: x[2])  
-        for ordre1 in self.ordresV:
+        for ordre1 in self.ordresV:            #boucle qui assure le fonctionnement du carnet 
             for ordre2 in self.ordresA:
-                if ordre1[0]==ordre2[2]:
-                    if ordre1[1]==ordre2[1]:
+                if ordre1[0]==ordre2[2]:        #comparaison des prix entre le carnet de vente et celui d'achat
+                    if ordre1[1]==ordre2[1]:    #si les quantités sont similaires alors les ordres s'exécutent entièrement
                         self.ordresA.remove(ordre2)
                         self.ordresV.remove(ordre1)
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €" + ", pour une quantité de " + str(ordre1[1])+" titres.")
-                    elif ordre1[1]<=ordre2[1]:
+                        print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €" + ", pour une quantité de " + str(ordre1[1])+" titres.")        #afficher la dernière transaction
+                    elif ordre1[1]<=ordre2[1]:    #si la quantité vendue est inférieure à la quantité achetée alors l'offre de vente disparait et le résidut d'achat reste sur le carnet
                         self.ordresV.remove(ordre1)
                         ordre2[1]=ordre2[1]-ordre1[1]
                         self.print_carnet()
                         print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €" + ", pour une quantité de " + str(ordre1[1]) + " titres.")
                     else:
-                        self.ordresA.remove(ordre2)
+                        self.ordresA.remove(ordre2)    #inversement si la quantité d'achat est supérieure à celle de vente
                         ordre1[1]=ordre1[1]-ordre2[1]
                         self.print_carnet()
                         print("la dernière transaction c'est effectué à " + str(ordre1[0]) + " €" + ", pour une quantité de " + str(ordre2[1]) + " titres.")
@@ -37,42 +37,42 @@ class CarnetOrdres:
 
 
 
-
-    def ajouter_achat(self, participant, quantite, prix):
+    #fonction pour ajouter l'ordre d'achat qui fonctionne sur le même principe que la précédente
+    def ajouter_achat(self, participant, quantite, prix):     
         self.ajoutOA=[]
         self.ajoutOA.append(participant)
         self.ajoutOA.append(quantite)
         self.ajoutOA.append(prix)
         self.ordresA.append(self.ajoutOA)
         self.ordresA.sort(key=lambda x: x[2], reverse=True)
-        for ordre1 in self.ordresA:
+        for ordre1 in self.ordresA:        #boucle qui assure le fonctionnement du carnet
             for ordre2 in self.ordresV:
-                if ordre1[2]==ordre2[0]:
+                if ordre1[2]==ordre2[0]:    #si les prix sont similaires les ordres se complètent
                     if ordre1[1]==ordre2[1]:
                         self.ordresA.remove(ordre2)
                         self.ordresV.remove(ordre1)
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €"+ ", pour une quantité de "+str(ordre1[1])+" titres.")
-                    elif ordre1[1]<=ordre2[1]:
+                        print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €"+ ", pour une quantité de "+str(ordre1[1])+" titres.")        #affichage de la dernière transaction
+                    elif ordre1[1]<=ordre2[1]:    #si l'ordre de vente est supérieur à celui d'achat alors l'achat disparait et le résidu de la vente apparait
                         self.ordresA.remove(ordre1)
                         ordre2[1]=ordre2[1]-ordre1[1]
                         self.print_carnet()
                         print("la dernière transaction c'est effectué à "+str(ordre1[2])+" €"+", pour une quantité de "+str(ordre1[1])+" titres.")
                     else:
-                        self.ordresV.remove(ordre2)
+                        self.ordresV.remove(ordre2)    #inversement lorsque l'achat est supérieur à la vente
                         ordre1[1]=ordre1[1]-ordre2[1]
                         self.print_carnet()
                         print("la dernière transaction c'est effectué à "+str(ordre1[2])+" €"+", pour une quantité de "+str(ordre2[1])+" titres.")
 
 
 
-# annuler ordres
+#fonction pour annuler un ordre
     def annuler(self, participant, type_ordre, quantite, prix):
-        if type_ordre == "achat":
-            for ordre in self.ordresA:
+        if type_ordre == "achat":    #vérifier le type d'ordre
+            for ordre in self.ordresA:    #boucle pour trouver l'ordre à annuler et ainsi l'annuler
                 if ordre[0] == participant and ordre[1] == quantite and ordre[2] == prix:
                     self.ordresA.remove(ordre)
-                    print("l'ordre de "+str(type_ordre)+", émis par "+str(participant)+", à une cotation de "+str(prix)+"€, pour une quantité de "+str(quantite)+" titres, a été annulé.")
+                    print("l'ordre de "+str(type_ordre)+", émis par "+str(participant)+", à une cotation de "+str(prix)+"€, pour une quantité de "+str(quantite)+" titres, a été annulé.")        #afficher l'annulation
                     return
         elif type_ordre == "vente":
             for ordre in self.ordresV:
@@ -85,7 +85,7 @@ class CarnetOrdres:
 
 
 
-#affichage carnet d'ordre
+#fonction d'affichage du carnet d'ordre
     def print_carnet(self):
         import pandas as pd
         tableOV = pd.DataFrame(carnet.ordresV, columns=["prix", "quantité", "participants"])
@@ -95,24 +95,20 @@ class CarnetOrdres:
         print(tableO)
 
 
-    # exemple d'utilsation
+#exemple d'utilsation
 carnet= CarnetOrdres()
 
 
 #placement ordres
-carnet.ajouter_achat("Divid_", 100, 15)
-carnet.ajouter_vente("Jeff_", 250, 11)
-carnet.ajouter_achat("Gwendoline_", 150, 14.5)
-carnet.ajouter_achat("Divid_",290,11)
-carnet.ajouter_vente("Jeff_", 250, 14.5)
-
-
-#afficher carnet d'ordres
-
+carnet.ajouter_achat("David", 100, 15)
+carnet.ajouter_vente("Jeff", 250, 11)
+carnet.ajouter_achat("Gwendoline", 150, 14.5)
+carnet.ajouter_achat("David",290,11)
+carnet.ajouter_vente("Jeff", 250, 14.5)
 
 
 
 #annuler un ordre
-carnet.annuler("Divid_","achat", 100, 15)
-carnet.annuler("Jeff_", "vente", 250, 18)
+carnet.annuler("David","achat", 100, 15)
+carnet.annuler("Jeff", "vente", 250, 18)
 
