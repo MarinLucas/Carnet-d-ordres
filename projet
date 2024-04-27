@@ -22,17 +22,17 @@ class CarnetOrdres:               #création de notre classe principale
                         self.ordresA.remove(ordre2)
                         self.ordresV.remove(ordre1)
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €" + ", pour une quantité de " + str(ordre1[1])+" titres.")        #afficher la dernière transaction
+                        print("la dernière transaction s'est effectuée à " + str(ordre1[2]) + " €" + ", pour une quantité de " + str(ordre1[1])+" titres.")        #afficher la dernière transaction
                     elif ordre1[1]<=ordre2[1]:    #si la quantité vendue est inférieure à la quantité achetée alors l'offre de vente disparait et le résidut d'achat reste sur le carnet
                         self.ordresV.remove(ordre1)
                         ordre2[1]=ordre2[1]-ordre1[1]
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €" + ", pour une quantité de " + str(ordre1[1]) + " titres.")
+                        print("la dernière transaction s'est effectuée à " + str(ordre1[2]) + " €" + ", pour une quantité de " + str(ordre1[1]) + " titres.")
                     else:
                         self.ordresA.remove(ordre2)    #inversement si la quantité d'achat est supérieure à celle de vente
                         ordre1[1]=ordre1[1]-ordre2[1]
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à " + str(ordre1[0]) + " €" + ", pour une quantité de " + str(ordre2[1]) + " titres.")
+                        print("la dernière transaction s'est effectuée à " + str(ordre1[0]) + " €" + ", pour une quantité de " + str(ordre2[1]) + " titres.")
            
 
 
@@ -54,17 +54,17 @@ class CarnetOrdres:               #création de notre classe principale
                         self.ordresA.remove(ordre2)
                         self.ordresV.remove(ordre1)
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à " + str(ordre1[2]) + " €"+ ", pour une quantité de "+str(ordre1[1])+" titres.")        #affichage de la dernière transaction
+                        print("la dernière transaction s'est effectuée à " + str(ordre1[2]) + " €"+ ", pour une quantité de "+str(ordre1[1])+" titres.")        #affichage de la dernière transaction
                     elif ordre1[1]<=ordre2[1]:    #si l'ordre de vente est supérieur à celui d'achat alors l'achat disparait et le résidu de la vente apparait
                         self.ordresA.remove(ordre1)
                         ordre2[1]=ordre2[1]-ordre1[1]
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à "+str(ordre1[2])+" €"+", pour une quantité de "+str(ordre1[1])+" titres.")
+                        print("la dernière transaction s'est effectuée à "+str(ordre1[2])+" €"+", pour une quantité de "+str(ordre1[1])+" titres.")
                     else:
                         self.ordresV.remove(ordre2)    #inversement lorsque l'achat est supérieur à la vente
                         ordre1[1]=ordre1[1]-ordre2[1]
                         self.print_carnet()
-                        print("la dernière transaction c'est effectué à "+str(ordre1[2])+" €"+", pour une quantité de "+str(ordre2[1])+" titres.")
+                        print("la dernière transaction s'est effectuée à "+str(ordre1[2])+" €"+", pour une quantité de "+str(ordre2[1])+" titres.")
 
 
 
