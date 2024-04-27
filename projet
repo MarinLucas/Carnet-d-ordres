@@ -1,3 +1,5 @@
+import pandas as pd
+
 class CarnetOrdres:               #création de notre classe principale
     def __init__(self):
         self.ordresA = []         #création de la liste d'ordres d'achat
@@ -87,7 +89,6 @@ class CarnetOrdres:               #création de notre classe principale
 
 #fonction d'affichage du carnet d'ordre
     def print_carnet(self):
-        import pandas as pd
         tableOV = pd.DataFrame(carnet.ordresV, columns=["prix", "quantité", "participants"])
         tableOA = pd.DataFrame(carnet.ordresA, columns=["participants", "quantité", "prix"])
         tableO = pd.concat([tableOA, tableOV], axis=1)
